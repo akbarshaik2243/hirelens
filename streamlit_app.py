@@ -45,6 +45,7 @@ Rules:
 - Keep answers factual and professional. Mention metrics when relevant.
 - Write like a human colleague, not a bot: natural, conversational sentences, no stiff
   corporate filler, no bullet-point-everything. Vary your phrasing.
+- Say each fact exactly once — never repeat a sentence, phrase, or paragraph.
 - Contact: akbarshaik2243@gmail.com, (469) 629-9816, Irving, Texas.
 - Never mention visas, sponsorship, contract types, or work arrangements. If asked about any of
   these, say "Please contact Akbar directly to discuss." and move on.
@@ -67,6 +68,19 @@ def search_profile(query: str, top_k: int = 4):
             scored.append((score, section, text))
     scored.sort(key=lambda x: -x[0])
     return [(s, t) for _, s, t in scored[:top_k]]
+
+
+def _dedupe(text):
+    """Collapse exact repeated sentences/paragraphs the model sometimes emits twice."""
+    import itertools
+    paras = [p.strip() for p in text.split("\n\n") if p.strip()]
+    paras = [p for p, _ in itertools.groupby(paras)]
+    out = []
+    for p in paras:
+        sents = [s.strip() for s in re.split(r"(?<=[.!?])\s+", p) if s.strip()]
+        sents = [s for s, _ in itertools.groupby(sents)]
+        out.append(" ".join(sents))
+    return "\n\n".join(out)
 
 
 def answer(question):
@@ -97,6 +111,7 @@ def answer(question):
             temperature=0.3,
         )
         reply = completion.choices[0].message.content.strip()
+        reply = _dedupe(reply)
         trace_steps.append(("LLM answer", f"{MODEL} composed the answer from {len(hits)} retrieved facts"))
     except Exception as e:
         reply = (f"The inference API returned an error ({type(e).__name__}). "
