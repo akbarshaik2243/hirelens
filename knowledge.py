@@ -103,6 +103,12 @@ FACTS = [
      "Contact Akbar Shaik: email akbarshaik2243@gmail.com, phone (469) 629-9816, based in Irving, Texas, USA. "
      "LinkedIn: linkedin.com/in/akbar-shaik-388086356"),
 
+    ("projects",
+     "Side projects: (1) HireLens — this site — an interactive AI portfolio: a retrieval-augmented agent "
+     "that answers questions from a profile knowledge base with observable tool calls, built with Streamlit, "
+     "Python, and Hugging Face serverless inference. (2) 'MCP Servers from Scratch' — a daily newsletter teaching "
+     "engineers to build Model Context Protocol servers, with 174 subscribers."),
+
     ("availability",
      "Akbar is open to new opportunities. For questions about specific arrangements, "
      "please contact him directly at akbarshaik2243@gmail.com or (469) 629-9816."),

@@ -1,10 +1,12 @@
-"""HireLens — an interactive AI agent that answers recruiter questions about a candidate's profile.
+"""HireLens — Akbar Shaik's personal website with an AI agent chat.
 
-Streamlit version (free hosting on Streamlit Community Cloud).
-Agentic loop: question -> TOOL CALL search_profile(question) -> LLM answers from retrieved facts.
+Sections: About, Experience, Skills, Projects, Chat with the agent, Schedule a call.
+The agent answers recruiter questions from the profile knowledge base only:
+never visas/sponsorship/contract terms, never personal questions.
 
-Secrets needed (Streamlit Cloud: App settings -> Secrets):
+Secrets (Streamlit Cloud -> App settings -> Secrets):
   HF_TOKEN = "<free Hugging Face read token>"
+  CAL_LINK = "<public Cal.com booking link>"
 """
 
 import os
@@ -18,11 +20,11 @@ from knowledge import PROFILE, FACTS
 MODEL = os.environ.get("HF_MODEL", "Qwen/Qwen2.5-72B-Instruct")
 
 
-def get_token():
+def get_secret(name):
     try:
-        return st.secrets["HF_TOKEN"]
+        return st.secrets[name]
     except Exception:
-        return os.environ.get("HF_TOKEN")
+        return os.environ.get(name)
 
 
 STOPWORDS = {
@@ -41,9 +43,14 @@ Rules:
 - Use ONLY the profile excerpts provided. Do not invent experience, skills, or facts.
 - If the excerpts don't cover the question, say so honestly and suggest contacting Akbar directly.
 - Keep answers factual and professional. Mention metrics when relevant.
+- Write like a human colleague, not a bot: natural, conversational sentences, no stiff
+  corporate filler, no bullet-point-everything. Vary your phrasing.
 - Contact: akbarshaik2243@gmail.com, (469) 629-9816, Irving, Texas.
 - Never mention visas, sponsorship, contract types, or work arrangements. If asked about any of
   these, say "Please contact Akbar directly to discuss." and move on.
+- Never answer personal questions: age, date of birth, home address, family, marital status,
+  salary or compensation, or anything not covered by the profile excerpts. If asked, say
+  "I can't share personal details — please reach Akbar directly at akbarshaik2243@gmail.com."
 """
 
 
@@ -64,7 +71,7 @@ def search_profile(query: str, top_k: int = 4):
 
 def answer(question):
     """Run the agent: retrieve facts, then have the LLM answer from them."""
-    token = get_token()
+    token = get_secret("HF_TOKEN")
     hits = search_profile(question)
     trace_steps = [
         ("Question received", question),
@@ -98,7 +105,17 @@ def answer(question):
     return reply, trace_steps
 
 
-# ---------------------------------------------------------------- UI content
+# ---------------------------------------------------------------- Content
+
+ABOUT = (
+    "I'm an Applied Machine Learning Engineer with 5+ years of experience building scalable, "
+    "production-grade ML systems, with a strong focus on LLMs, MLOps, and AI platform engineering. "
+    "My recent work centers on the Model Context Protocol (MCP): I've built production MCP servers "
+    "including an 11-tool Kubeflow MCP service and an agentic Credit Memo workflow backed by PostgreSQL "
+    "on Kubernetes. I've also delivered an end-to-end RAG pipeline, from FAISS-based retrieval through "
+    "LLM serving with Mistral-7B. I'm passionate about building AI systems that are reliable, "
+    "explainable, and enterprise-ready."
+)
 
 SKILL_GROUPS = {
     "Agentic AI": ["MCP / FastMCP", "LangChain", "LangGraph", "Tool calling",
@@ -133,6 +150,26 @@ EXPERIENCE = [
      "SHAP/LIME explainability. Cut model failures 70%, API latency 28%. Passed 2 regulatory audits."),
 ]
 
+PROJECTS = [
+    ("HireLens — this website",
+     "An interactive AI portfolio: a retrieval-augmented agent that answers recruiter questions "
+     "from a profile knowledge base, with observable tool calls. Built with Streamlit, Python, "
+     "and Hugging Face serverless inference. You're looking at it.",
+     ["Agentic AI", "RAG", "Streamlit", "LLM eval"]),
+    ("MCP Servers from Scratch (newsletter)",
+     "A daily newsletter teaching engineers to build Model Context Protocol servers from zero. "
+     "174 subscribers and growing — writing in public about MCP transports, tools, and security.",
+     ["MCP", "Technical writing", "Community"]),
+    ("Kubeflow MCP Server",
+     "Production MCP service with 11 tools covering Kubeflow Pipelines and Notebooks, letting LLM "
+     "agents operate ML platforms through natural language. Multi-tenant auth with OIDC/JWT and RBAC.",
+     ["MCP", "FastMCP", "Kubernetes", "OIDC/JWT"]),
+    ("Agentic Credit Memo workflow",
+     "Tool-calling agent backend with FastMCP and PostgreSQL (CloudNativePG) on Kubernetes, "
+     "automating document-generation workflows. Resolved service-mesh, TLS, and DNS issues to production.",
+     ["Agentic AI", "PostgreSQL", "Kubernetes", "Helm"]),
+]
+
 QUESTION_CHIPS = {
     "Experience": ["What MCP work has Akbar done?",
                    "Tell me about his RAG experience",
@@ -140,34 +177,84 @@ QUESTION_CHIPS = {
     "Skills": ["What are his strongest skills?",
                "Has he worked with Kubernetes and MLOps?",
                "What certifications does he have?"],
-    "Availability": ["Is Akbar open to new opportunities?",
-                     "How can I reach Akbar?",
-                     "What is his contact info?"],
+    "Contact": ["Is Akbar open to new opportunities?",
+                "How can I reach Akbar?",
+                "What is his contact info?"],
 }
 
 # ---------------------------------------------------------------- App
 
-st.set_page_config(page_title="HireLens", page_icon=":robot_face:", layout="wide")
+st.set_page_config(page_title="Akbar Shaik — Applied AI/ML Engineer",
+                   page_icon=":robot_face:", layout="wide")
 
-# Header
-st.title("HireLens :robot_face:")
-st.subheader("An AI agent that answers recruiter questions about a candidate's profile")
-st.caption("Demo by **Akbar Shaik** — Applied AI/ML Engineer · Agentic AI, LLMs & RAG, MCP, MLOps on Kubernetes")
+# Hero
+st.title("Akbar Shaik")
+st.subheader("Applied AI/ML Engineer · Agentic AI · LLMs & RAG · MCP · MLOps on Kubernetes")
+st.write("I build production AI systems: MCP servers and tool-calling agents, RAG pipelines, "
+         "and ML platforms on Kubernetes. 5+ years shipping agentic AI end to end.")
 
-# Stat band
-c1, c2, c3, c4 = st.columns(4)
-c1.metric("Experience", "5+ years")
-c2.metric("Skill areas", f"{sum(len(v) for v in SKILL_GROUPS.values())}+")
-c3.metric("Companies", "3")
-c4.metric("Certifications", "3")
+hero_c1, hero_c2, hero_c3 = st.columns(3)
+cal_link = get_secret("CAL_LINK")
+with hero_c1:
+    if cal_link:
+        st.link_button(":calendar: Schedule a call", cal_link)
+    else:
+        st.caption("Scheduling link coming soon")
+with hero_c2:
+    st.link_button(":email: akbarshaik2243@gmail.com", "mailto:akbarshaik2243@gmail.com")
+with hero_c3:
+    st.link_button(":briefcase: LinkedIn", "https://www.linkedin.com/in/akbar-shaik-388086356/")
 
 st.divider()
 
-tab_chat, tab_skills, tab_exp, tab_how = st.tabs(
-    ["Chat with the agent", "Skills", "Experience", "How it works"])
+tab_about, tab_exp, tab_skills, tab_projects, tab_chat, tab_call = st.tabs(
+    ["About", "Experience", "Skills", "Projects", "Chat with my AI agent", "Schedule a call"])
 
-# ---------------- Chat tab
+with tab_about:
+    st.markdown("### About me")
+    st.write(ABOUT)
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric("Experience", "5+ years")
+    m2.metric("Skill areas", f"{sum(len(v) for v in SKILL_GROUPS.values())}+")
+    m3.metric("Education", "M.S. Data Science")
+    m4.metric("Certifications", "3")
+    st.markdown("**Impact highlights**")
+    st.write("- Automated 60% of support queries at 90%+ accuracy (RAG assistant)\n"
+             "- 42% faster responses, 28% lower inference latency\n"
+             "- 70% fewer model failures via MLOps practices\n"
+             "- Shared MCP framework adopted across multiple engineering teams")
+
+with tab_exp:
+    st.markdown("### Professional experience")
+    for title, company, dates, desc in EXPERIENCE:
+        with st.container(border=True):
+            st.markdown(f"**{title}**")
+            st.caption(f"{company} · {dates}")
+            st.write(desc)
+    st.markdown("### Education")
+    st.write("- **M.S. Data Science**, University of North Texas\n"
+             "- **B.Tech**, Lakireddy Bali Reddy College of Engineering")
+
+with tab_skills:
+    st.markdown("### Technical skills")
+    for group, skills in SKILL_GROUPS.items():
+        with st.expander(f"{group} ({len(skills)})"):
+            cols = st.columns(3)
+            for i, skill in enumerate(skills):
+                cols[i % 3].markdown(f":white_check_mark: {skill}")
+
+with tab_projects:
+    st.markdown("### Projects")
+    for name, desc, tags in PROJECTS:
+        with st.container(border=True):
+            st.markdown(f"**{name}**")
+            st.write(desc)
+            st.caption(" · ".join(tags))
+
 with tab_chat:
+    st.markdown("### Chat with my AI agent")
+    st.caption("Ask anything about my background, skills, or projects. The agent searches my profile "
+               "and answers from what it finds — watch the trace to see how it works.")
     col_chat, col_trace = st.columns([3, 2])
 
     if "history" not in st.session_state:
@@ -178,8 +265,6 @@ with tab_chat:
         st.session_state.pending_q = None
 
     with col_chat:
-        st.markdown("**Ask anything about Akbar's background, skills, or availability.** "
-                    "The agent searches his profile, then answers from what it finds.")
         for group, questions in QUESTION_CHIPS.items():
             st.markdown(f"_{group}_")
             chip_cols = st.columns(len(questions))
@@ -205,8 +290,7 @@ with tab_chat:
             st.rerun()
 
     with col_trace:
-        st.markdown("### Agent trace")
-        st.caption("Every step the agent took to answer your last question.")
+        st.markdown("#### Agent trace")
         if not st.session_state.trace:
             st.info("Ask a question and watch the agent work here: retrieval first, then the answer.")
         else:
@@ -214,62 +298,24 @@ with tab_chat:
                 with st.expander(f"Step {i}: {title}", expanded=(i <= 2)):
                     st.write(detail)
 
-# ---------------- Skills tab
-with tab_skills:
-    st.markdown("### Technical skills")
-    st.caption("Grouped by domain. Click any group to expand.")
-    for group, skills in SKILL_GROUPS.items():
-        with st.expander(f"{group} ({len(skills)})", expanded=False):
-            pill_cols = st.columns(3)
-            for i, skill in enumerate(skills):
-                pill_cols[i % 3].markdown(f":white_check_mark: {skill}")
+with tab_call:
+    st.markdown("### Schedule a call")
+    st.write("Want to talk through a role or a project? Pick a time that works for you — "
+             "you'll get a calendar invite automatically.")
+    if cal_link:
+        st.link_button(":calendar: Open the scheduler", cal_link)
+        st.caption("Powered by Cal.com · 30-minute intro calls · Weekdays 2 – 4 PM CT")
+    else:
+        st.info("The scheduler is being set up — please check back soon, or email akbarshaik2243@gmail.com.")
 
-# ---------------- Experience tab
-with tab_exp:
-    st.markdown("### Professional experience")
-    for title, company, dates, desc in EXPERIENCE:
-        with st.container(border=True):
-            st.markdown(f"**{title}**")
-            st.caption(f"{company} · {dates}")
-            st.write(desc)
-
-# ---------------- How it works tab
-with tab_how:
-    st.markdown("### How HireLens works")
-    s1, s2, s3 = st.columns(3)
-    with s1:
-        st.markdown("#### 1. You ask")
-        st.write("Type any question about the candidate — skills, projects, availability, contact info.")
-    with s2:
-        st.markdown("#### 2. Agent retrieves")
-        st.write("A `search_profile()` tool call finds the most relevant facts in the candidate's "
-                 "profile knowledge base. The trace panel shows exactly what was retrieved.")
-    with s3:
-        st.markdown("#### 3. LLM answers")
-        st.write("A large language model composes the answer strictly from the retrieved facts — "
-                 "no hallucinations, no invented experience.")
-    st.divider()
-    st.markdown("#### Why this matters for hiring teams")
-    st.write("This is the same **retrieval-augmented agent pattern** companies use for documentation "
-             "copilots, support bots, and knowledge assistants: grounded answers, observable tool calls, "
-             "and evaluable outputs. Point it at any knowledge base — a company wiki, a product manual, "
-             "a resume database — and it works the same way.")
-    with st.expander("Tech stack"):
-        st.write("- UI: Streamlit (this app)\n"
-                 "- Agent loop: tool-call retrieval + LLM composition\n"
-                 "- LLM: Qwen 2.5 72B via Hugging Face serverless inference\n"
-                 "- Knowledge base: structured profile facts (swap in any documents)\n"
-                 "- Hosting: Streamlit Community Cloud (free)")
-
-# Sidebar: contact card
+# Sidebar contact card
 with st.sidebar:
-    st.markdown("### Contact Akbar")
+    st.markdown("### Contact")
     st.write(":email: akbarshaik2243@gmail.com")
     st.write(":telephone_receiver: (469) 629-9816")
     st.write(":round_pushpin: Irving, Texas, USA")
+    st.write(":briefcase: [LinkedIn](https://www.linkedin.com/in/akbar-shaik-388086356/)")
     st.divider()
-    st.markdown("### Availability")
     st.success("Open to new opportunities")
-    st.caption("Contact Akbar directly to discuss fit")
     st.divider()
-    st.caption("HireLens demo · Built by Akbar Shaik")
+    st.caption("Built by Akbar Shaik · HireLens")
