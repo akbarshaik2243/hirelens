@@ -13,6 +13,8 @@ import os
 import re
 
 import streamlit as st
+import streamlit.components.v1 as components
+import time
 from huggingface_hub import InferenceClient
 
 from knowledge import PROFILE, FACTS
@@ -356,9 +358,23 @@ with tab_call:
     st.markdown("### Schedule a call")
     st.write("Want to talk through a role or a project? Pick a time that works for you — "
              "you'll get a calendar invite automatically.")
-    if cal_link:
-        st.link_button(":calendar: Open the scheduler", cal_link)
+    booked_at = st.session_state.get("booked_at")
+    if booked_at and time.time() - booked_at > 8:
+        del st.session_state["booked_at"]
+        booked_at = None
+    if booked_at:
+        st.success("Scheduled! A Google Meet invite is on its way to your email. "
+                   "Taking you back to the profile…")
+        components.html(
+            "<script>setTimeout(function(){window.parent.location.reload();},5000);</script>",
+            height=0,
+        )
+    elif cal_link:
+        components.iframe(cal_link, height=680, scrolling=True)
         st.caption("Powered by Cal.com · 30-minute intro calls · Weekdays 2 – 4 PM CT")
+        if st.button("Done — I've scheduled my call", key="booked_btn"):
+            st.session_state["booked_at"] = time.time()
+            st.rerun()
     else:
         st.info("The scheduler is being set up — please check back soon.")
 
