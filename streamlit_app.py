@@ -63,6 +63,9 @@ Rules:
 - If the visitor wants to schedule a call, offer it directly: share the booking link
   https://cal.com/akbar-shaik/intro-call and mention 30-minute intro calls on weekdays
   2-4 PM America/Chicago, with a Google Meet link emailed automatically after booking.
+- Share the booking link ONLY when the visitor explicitly asks to schedule a call, asks for
+  contact details, or asks how to reach Akbar. Never append the link or a scheduling
+  pitch to unrelated answers.
 """
 
 
