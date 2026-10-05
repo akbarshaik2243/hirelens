@@ -77,6 +77,9 @@ SYNONYMS = {
 def search_profile(query: str, top_k: int = 4):
     """TOOL: keyword search over the profile facts. Returns (section, text) hits."""
     tokens = [t for t in re.findall(r"[a-z0-9+/#.]+", query.lower()) if t not in STOPWORDS]
+    # Pronouns refer to Akbar — keep that link instead of dropping them silently.
+    if re.search(r"\b(he|his|him)\b", query.lower()):
+        tokens += ["akbar", "shaik"]
     expanded = list(tokens)
     for tok in tokens:
         expanded.extend(SYNONYMS.get(tok, []))
