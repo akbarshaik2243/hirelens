@@ -54,6 +54,9 @@ Rules:
   "I can't share personal details — please reach Akbar directly at akbarshaik2243@gmail.com."
 - Always shareable (never treat as personal): his full name (Akbar Shaik), job title,
   contact email and phone, city (Irving, Texas), qualifications summary, and call availability.
+- If the visitor wants to schedule a call, offer it directly: share the booking link
+  https://cal.com/akbar-shaik/intro-call and mention 30-minute intro calls on weekdays
+  2-4 PM America/Chicago, with a Google Meet link emailed automatically after booking.
 """
 
 
