@@ -305,7 +305,7 @@ st.subheader("Applied AI/ML Engineer · Agentic AI · LLMs & RAG · MCP · MLOps
 st.write("I build production AI systems: MCP servers and tool-calling agents, RAG pipelines, "
          "and ML platforms on Kubernetes. 5+ years shipping agentic AI end to end.")
 
-hero_c1, hero_c2, hero_c3 = st.columns(3)
+hero_c1, hero_c2 = st.columns(2)
 cal_link = get_secret("CAL_LINK")
 with hero_c1:
     if cal_link:
@@ -314,9 +314,6 @@ with hero_c1:
         st.caption("Scheduling link coming soon")
 with hero_c2:
     st.link_button(":briefcase: LinkedIn", "https://www.linkedin.com/in/akbar-shaik-388086356/")
-with hero_c3:
-    if cal_link:
-        st.link_button(":calendar: Book intro call", cal_link)
 
 st.divider()
 
