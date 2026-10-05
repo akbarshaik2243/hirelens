@@ -16,7 +16,7 @@ from huggingface_hub import InferenceClient
 
 from knowledge import PROFILE, FACTS
 
-MODEL = os.environ.get("HF_MODEL", "meta-llama/Llama-3.3-70B-Instruct")
+MODEL = os.environ.get("HF_MODEL", "Qwen/Qwen2.5-72B-Instruct")
 
 
 def get_token():
