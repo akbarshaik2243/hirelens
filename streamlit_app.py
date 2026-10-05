@@ -189,7 +189,7 @@ with tab_chat:
         for q, a in st.session_state.history:
             with st.chat_message("user"):
                 st.write(q)
-            with st.chat_message("assistant", avatar=":robot_face:"):
+            with st.chat_message("assistant", avatar="🤖"):
                 st.write(a)
 
         user_q = st.chat_input("Type your question here...")
