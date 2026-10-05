@@ -220,17 +220,13 @@ def answer(question):
 # ---------------------------------------------------------------- Content
 
 ABOUT = (
-    "I build AI agents that work in production.\n\n"
-    "For 5+ years I've been obsessed with one problem: getting LLMs to do real work reliably. "
-    "Not demos. Systems with evals, guardrails, and uptime that hold up when it matters.\n\n"
-    "What that looks like in practice:\n\n"
-    "- MCP servers with 30+ tools that let agents run ML platforms through plain language\n"
-    "- RAG and GraphRAG pipelines with hybrid retrieval: 60% of support queries automated at 90%+ accuracy\n"
-    "- MLOps platforms with 70% fewer model failures and 28% lower inference latency\n"
-    "- Shared frameworks that other engineering teams actually adopt\n\n"
-    "Currently Applied ML Engineer at HPE. Before that, Teledyne and Creative Newtech.\n\n"
-    "I also build in public: a daily newsletter on MCP servers, and HireLens, this site, "
-    "where an AI agent answers questions about my work."
+    "I'm an Applied Machine Learning Engineer with 5+ years of experience building scalable, "
+    "production-grade ML systems, with a strong focus on LLMs, MLOps, and AI platform engineering. "
+    "My recent work centers on the Model Context Protocol (MCP): I've built production MCP servers "
+    "including an 11-tool Kubeflow MCP service and an agentic Credit Memo workflow backed by PostgreSQL "
+    "on Kubernetes. I've also delivered an end-to-end RAG pipeline, from FAISS-based retrieval through "
+    "LLM serving with Mistral-7B. I'm passionate about building AI systems that are reliable, "
+    "explainable, and enterprise-ready."
 )
 
 SKILL_GROUPS = {
@@ -305,9 +301,9 @@ st.set_page_config(page_title="Akbar Shaik — Applied AI/ML Engineer",
 
 # Hero
 st.title("Akbar Shaik")
-st.subheader("I build AI agents that work in production.")
-st.write("5+ years obsessed with one problem: getting LLMs to do real work reliably. "
-         "Not demos. Systems with evals, guardrails, and uptime that hold up when it matters.")
+st.subheader("Applied AI/ML Engineer · Agentic AI · LLMs & RAG · MCP · MLOps on Kubernetes")
+st.write("I build production AI systems: MCP servers and tool-calling agents, RAG pipelines, "
+         "and ML platforms on Kubernetes. 5+ years shipping agentic AI end to end.")
 
 hero_c1, hero_c2 = st.columns(2)
 cal_link = get_secret("CAL_LINK")
