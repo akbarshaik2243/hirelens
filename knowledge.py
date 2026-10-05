@@ -8,8 +8,6 @@ PROFILE = {
     "name": "Akbar Shaik",
     "title": "Applied AI / ML Engineer",
     "focus": "Agentic AI, LLMs & RAG, MCP, MLOps on Kubernetes",
-    "email": "akbarshaik2243@gmail.com",
-    "phone": "(469) 629-9816",
     "location": "Irving, Texas, USA",
     "experience_years": "5+ years",
     "availability": "Open to new opportunities. Contact Akbar directly to discuss fit.",

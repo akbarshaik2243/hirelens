@@ -254,9 +254,10 @@ with hero_c1:
     else:
         st.caption("Scheduling link coming soon")
 with hero_c2:
-    st.link_button(":email: akbarshaik2243@gmail.com", "mailto:akbarshaik2243@gmail.com")
-with hero_c3:
     st.link_button(":briefcase: LinkedIn", "https://www.linkedin.com/in/akbar-shaik-388086356/")
+with hero_c3:
+    if cal_link:
+        st.link_button(":calendar: Book intro call", cal_link)
 
 st.divider()
 
@@ -359,15 +360,14 @@ with tab_call:
         st.link_button(":calendar: Open the scheduler", cal_link)
         st.caption("Powered by Cal.com · 30-minute intro calls · Weekdays 2 – 4 PM CT")
     else:
-        st.info("The scheduler is being set up — please check back soon, or email akbarshaik2243@gmail.com.")
+        st.info("The scheduler is being set up — please check back soon.")
 
 # Sidebar contact card
 with st.sidebar:
     st.markdown("### Contact")
-    st.write(":email: akbarshaik2243@gmail.com")
-    st.write(":telephone_receiver: (469) 629-9816")
     st.write(":round_pushpin: Irving, Texas, USA")
     st.write(":briefcase: [LinkedIn](https://www.linkedin.com/in/akbar-shaik-388086356/)")
+    st.write(":calendar: [Book an intro call](https://cal.com/akbar-shaik/intro-call)")
     st.divider()
     st.success("Open to new opportunities")
     st.divider()
