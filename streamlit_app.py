@@ -110,18 +110,22 @@ def _scrub_contact(text):
 
 
 AGENT_IDENTITY = (
-    "I'm HireLens — Akbar Shaik's AI representative. I can walk you through his background, "
-    "skills, and projects, or help you book a 30-minute intro call with him."
+    "I'm HireLens — Akbar Shaik's AI representative. Akbar built me with Streamlit, Python, "
+    "and Hugging Face inference: I search his profile and answer questions about his background, "
+    "skills, and projects. I can also help you book a 30-minute intro call with him."
 )
 
 
 def _is_about_agent(question):
-    """'What is your name' / 'who are you' -> the agent; 'his name' -> Akbar."""
+    """'What is your name' / 'who are you' / 'tell me about you' -> the agent;
+    'his name' / 'his work' -> Akbar."""
     q = question.lower()
     second_person = bool(re.search(r"\b(you|your|yours|yourself)\b", q))
     identity_word = bool(re.search(r"\b(name|who|agent|hirelens|yourself)\b", q))
-    return ((second_person and identity_word)
-            or bool(re.search(r"\b(this|that|what)\s+agent\b", q)))
+    about_you = bool(re.search(r"\babout\s+you\b|\babout\s+yourself\b", q))
+    how_built = bool(re.search(r"\bhow\s+(were|are|did)\s+you\s+(built|made|created)\b", q))
+    which_agent = bool(re.search(r"\b(this|that|what)\s+agent\b", q))
+    return (second_person and identity_word) or about_you or how_built or which_agent
 
 
 def _dedupe(text):
