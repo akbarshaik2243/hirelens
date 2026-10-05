@@ -12,11 +12,7 @@ PROFILE = {
     "phone": "(469) 629-9816",
     "location": "Irving, Texas, USA",
     "experience_years": "5+ years",
-    "work_authorization": "H-1B visa; does NOT need sponsorship now or in the future",
-    "availability": (
-        "Open to REMOTE CONTRACT roles (C2C through his own employer). "
-        "Not looking for W2-through-vendor, onsite, or contract-to-hire roles."
-    ),
+    "availability": "Open to new opportunities. Contact Akbar directly to discuss fit.",
     "education": "M.S. Data Science, University of North Texas; B.Tech, Lakireddy Bali Reddy College of Engineering",
 }
 
@@ -108,11 +104,6 @@ FACTS = [
      "LinkedIn: linkedin.com/in/akbar-shaik-388086356"),
 
     ("availability",
-     "Akbar is open to REMOTE CONTRACT roles, working C2C through his own employer. "
-     "He is not looking for W2-through-vendor roles, onsite roles, or contract-to-hire positions. "
-     "He is available to start on contract engagements and welcomes inquiries from recruiters with remote C2C AI/ML roles."),
-
-    ("work_authorization",
-     "Akbar is on an H-1B visa and does NOT need sponsorship now or in the future. "
-     "He works through his own employer on a C2C basis, so client sponsorship is not required."),
+     "Akbar is open to new opportunities. For questions about specific arrangements, "
+     "please contact him directly at akbarshaik2243@gmail.com or (469) 629-9816."),
 ]

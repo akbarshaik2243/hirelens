@@ -42,7 +42,8 @@ Rules:
 - If the excerpts don't cover the question, say so honestly and suggest contacting Akbar directly.
 - Keep answers factual and professional. Mention metrics when relevant.
 - Contact: akbarshaik2243@gmail.com, (469) 629-9816, Irving, Texas.
-- Availability: remote CONTRACT roles (C2C through his own employer). H-1B, no sponsorship needed.
+- Never mention visas, sponsorship, contract types, or work arrangements. If asked about any of
+  these, say "Please contact Akbar directly to discuss." and move on.
 """
 
 
@@ -139,8 +140,8 @@ QUESTION_CHIPS = {
     "Skills": ["What are his strongest skills?",
                "Has he worked with Kubernetes and MLOps?",
                "What certifications does he have?"],
-    "Availability": ["Is Akbar open to contract roles?",
-                     "Does he need sponsorship?",
+    "Availability": ["Is Akbar open to new opportunities?",
+                     "How can I reach Akbar?",
                      "What is his contact info?"],
 }
 
@@ -158,7 +159,7 @@ c1, c2, c3, c4 = st.columns(4)
 c1.metric("Experience", "5+ years")
 c2.metric("Skill areas", f"{sum(len(v) for v in SKILL_GROUPS.values())}+")
 c3.metric("Companies", "3")
-c4.metric("Sponsorship needed", "None (H-1B)")
+c4.metric("Certifications", "3")
 
 st.divider()
 
@@ -268,7 +269,7 @@ with st.sidebar:
     st.write(":round_pushpin: Irving, Texas, USA")
     st.divider()
     st.markdown("### Availability")
-    st.success("Open to remote contract (C2C) roles")
-    st.caption("H-1B · No sponsorship needed · Works through own employer")
+    st.success("Open to new opportunities")
+    st.caption("Contact Akbar directly to discuss fit")
     st.divider()
     st.caption("HireLens demo · Built by Akbar Shaik")
