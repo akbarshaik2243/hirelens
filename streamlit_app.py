@@ -52,12 +52,32 @@ Rules:
 - Never answer personal questions: age, date of birth, home address, family, marital status,
   salary or compensation, or anything not covered by the profile excerpts. If asked, say
   "I can't share personal details — please reach Akbar directly at akbarshaik2243@gmail.com."
+- Always shareable (never treat as personal): his full name (Akbar Shaik), job title,
+  contact email and phone, city (Irving, Texas), qualifications summary, and call availability.
 """
+
+
+SYNONYMS = {
+    "qualifications": ["experience", "skills", "education", "degree", "master", "certifications", "background"],
+    "qualification": ["experience", "skills", "education", "degree", "master", "certifications", "background"],
+    "background": ["experience", "education", "skills"],
+    "timing": ["schedule", "availability", "call", "meet"],
+    "timings": ["schedule", "availability", "call", "meet"],
+    "meet": ["schedule", "availability", "call", "booking"],
+    "meeting": ["schedule", "availability", "call", "booking"],
+    "available": ["schedule", "availability", "call"],
+    "availability": ["schedule", "call", "booking"],
+    "name": ["akbar", "shaik", "identity"],
+}
 
 
 def search_profile(query: str, top_k: int = 4):
     """TOOL: keyword search over the profile facts. Returns (section, text) hits."""
     tokens = [t for t in re.findall(r"[a-z0-9+/#.]+", query.lower()) if t not in STOPWORDS]
+    expanded = list(tokens)
+    for tok in tokens:
+        expanded.extend(SYNONYMS.get(tok, []))
+    tokens = expanded
     scored = []
     for section, text in FACTS:
         low = text.lower()

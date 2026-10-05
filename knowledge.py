@@ -109,7 +109,13 @@ FACTS = [
      "Python, and Hugging Face serverless inference. (2) 'MCP Servers from Scratch' — a daily newsletter teaching "
      "engineers to build Model Context Protocol servers, with 174 subscribers."),
 
+    ("identity",
+     "Akbar Shaik is an Applied AI/ML Engineer with 5+ years of experience, based in Irving, Texas, USA. "
+     "Master's in Data Science from the University of North Texas."),
+
     ("availability",
-     "Akbar is open to new opportunities. For questions about specific arrangements, "
-     "please contact him directly at akbarshaik2243@gmail.com or (469) 629-9816."),
+     "Akbar offers 30-minute intro calls on working days (Monday-Friday), 2:00 PM to 4:00 PM America/Chicago. "
+     "Book directly through the 'Schedule a call' tab on this site (powered by Cal.com); every booking "
+     "automatically generates a Google Meet link emailed to both sides. For anything else, reach him at "
+     "akbarshaik2243@gmail.com or (469) 629-9816."),
 ]
