@@ -136,6 +136,14 @@ FACTS = [
      "RAG with hybrid retrieval and failure analysis; cost-aware (tracks token cost and latency per request); "
      "collaborative — shared frameworks adopted across teams, demos to leadership, dogfooding with end users."),
 
+    ("weaknesses",
+     "On weaknesses: Akbar's profile doesn't list any weaknesses, so never invent any. What the record shows "
+     "instead is how he handles gaps and risks: when a document-generation deployment hit service-mesh, TLS, "
+     "and DNS issues, he resolved them to reach production; where agent quality was at risk, he built evaluation "
+     "harnesses (DeepEval, Promptfoo) gating prompt and tool changes before release; where LLM safety was at "
+     "risk, he added guardrails, red-teaming, and PII masking. Answer weakness questions from this evidence, "
+     "in your own words, and never append a booking link."),
+
     ("skills_mldl",
      "ML & Deep Learning: PyTorch, TensorFlow, Keras, scikit-learn, XGBoost, distributed training "
      "(PyTorch DDP), NLP (NER, summarization, Q&A, intent classification), feature engineering, "

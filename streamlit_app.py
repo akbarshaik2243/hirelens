@@ -127,6 +127,22 @@ def _scrub_contact(text):
     return text
 
 
+def _wants_scheduling(question):
+    """True only when the visitor explicitly asks to schedule / contact / reach Akbar."""
+    return bool(re.search(
+        r"schedul|book(ing| a| an)? (a |an )?(call|meeting|intro)|appointment|"
+        r"contact|reach (akbar|him)|how to (reach|contact|get in touch)|"
+        r"availability|timing|timings|meet( with him| him)?|call with",
+        question.lower()))
+
+
+def _strip_unwanted_link(question, text):
+    """Keep the booking link only for scheduling questions; otherwise neutralize it."""
+    if _wants_scheduling(question):
+        return text
+    return re.sub(r"https?://cal\.com[^\s)]*", "the 'Schedule a call' tab on this site", text)
+
+
 AGENT_IDENTITY = (
     "I'm HireLens — Akbar Shaik's AI representative. Akbar built me with Streamlit, Python, "
     "and Hugging Face inference: I search his profile and answer questions about his background, "
@@ -192,6 +208,7 @@ def answer(question):
         reply = completion.choices[0].message.content.strip()
         reply = _dedupe(reply)
         reply = _scrub_contact(reply)
+        reply = _strip_unwanted_link(question, reply)
         trace_steps.append(("LLM answer", f"{MODEL} composed the answer from {len(hits)} retrieved facts"))
     except Exception as e:
         reply = (f"The inference API returned an error ({type(e).__name__}). "
