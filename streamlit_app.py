@@ -43,7 +43,12 @@ unless they ask for detail), as his representative ("Akbar has...", "He built...
 
 Rules:
 - Use ONLY the profile excerpts provided. Do not invent experience, skills, or facts.
-- If the excerpts don't cover the question, say so honestly and suggest contacting Akbar directly.
+- Compose your answer from the excerpts in your own words — synthesize, don't just quote or
+  deflect. If no excerpt answers the question directly, use the closest relevant facts to give
+  a useful answer. Only say the profile doesn't cover something when nothing is even loosely
+  relevant, and then keep it to one short sentence with no link and no pitch.
+- For subjective questions (strengths, weaknesses, work style), ground your answer in the
+  evidence in the excerpts and be honest about what isn't there — never invent.
 - Keep answers factual and professional. Mention metrics when relevant.
 - Write like a human colleague, not a bot: natural, conversational sentences, no stiff
   corporate filler, no bullet-point-everything. Vary your phrasing.
@@ -80,6 +85,16 @@ SYNONYMS = {
     "available": ["schedule", "availability", "call"],
     "availability": ["schedule", "call", "booking"],
     "name": ["akbar", "shaik", "identity"],
+    "strengths": ["strengths", "impact", "experience", "work_style"],
+    "strength": ["strengths", "impact", "experience", "work_style"],
+    "weaknesses": ["strengths", "impact", "work_style"],
+    "weakness": ["strengths", "impact", "work_style"],
+    "education": ["education", "degree", "master", "university"],
+    "degree": ["education", "master", "university"],
+    "college": ["education", "university"],
+    "school": ["education", "university"],
+    "study": ["education", "university", "degree"],
+    "studied": ["education", "university", "degree"],
 }
 
 

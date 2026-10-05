@@ -112,6 +112,35 @@ FACTS = [
      "Akbar Shaik is an Applied AI/ML Engineer with 5+ years of experience, based in Irving, Texas, USA. "
      "Master's in Data Science from the University of North Texas."),
 
+    ("education",
+     "Education: M.S. in Data Science from the University of North Texas; "
+     "B.Tech from Lakireddy Bali Reddy College of Engineering."),
+
+    ("career",
+     "Career timeline: MLOps / ML Platform Engineer at Creative Newtech Ltd, India (Feb 2020 – Aug 2022); "
+     "Applied AI Engineer at Teledyne Technologies Inc., US (Jan 2024 – Apr 2026); "
+     "Applied Machine Learning Engineer at Hewlett Packard Enterprise (HPE), Texas (Apr 2026 – Present). "
+     "5+ years total building production AI/ML systems end to end."),
+
+    ("strengths",
+     "Strengths evident from Akbar's track record: he ships production AI systems end to end, from design "
+     "through deployment and scale; he builds shared frameworks and platforms that other engineering teams "
+     "adopt; he owns hard production problems across networking, auth, and scale (service-mesh, TLS, DNS, "
+     "autoscaling with zero pod restarts); his RAG and agent work holds up under rigorous evaluation "
+     "(DeepEval, Promptfoo, RAGAS) and red-teaming; and his ML platforms have passed regulatory audits "
+     "with zero issues."),
+
+    ("work_style",
+     "How Akbar works: production-first — evaluation harnesses gate prompt and tool changes before release; "
+     "security-minded (OWASP LLM Top 10, guardrails, red-teaming, PII masking); builds documentation-grounded "
+     "RAG with hybrid retrieval and failure analysis; cost-aware (tracks token cost and latency per request); "
+     "collaborative — shared frameworks adopted across teams, demos to leadership, dogfooding with end users."),
+
+    ("skills_mldl",
+     "ML & Deep Learning: PyTorch, TensorFlow, Keras, scikit-learn, XGBoost, distributed training "
+     "(PyTorch DDP), NLP (NER, summarization, Q&A, intent classification), feature engineering, "
+     "model evaluation, predictive maintenance modeling, recommendation systems."),
+
     ("availability",
      "Akbar offers 30-minute intro calls on working days (Monday-Friday), 2:00 PM to 4:00 PM America/Chicago. "
      "Book directly through the 'Schedule a call' tab on this site (powered by Cal.com); every booking "
