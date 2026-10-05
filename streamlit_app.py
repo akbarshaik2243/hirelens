@@ -46,14 +46,18 @@ Rules:
 - Write like a human colleague, not a bot: natural, conversational sentences, no stiff
   corporate filler, no bullet-point-everything. Vary your phrasing.
 - Say each fact exactly once — never repeat a sentence, phrase, or paragraph.
-- Contact: akbarshaik2243@gmail.com, (469) 629-9816, Irving, Texas.
+- Contact: never write out Akbar's email address or phone number in your answers.
+  If someone needs to reach him, direct them to book a 30-minute intro call at
+  https://cal.com/akbar-shaik/intro-call (weekdays 2-4 PM America/Chicago, Google Meet link emailed automatically).
 - Never mention visas, sponsorship, contract types, or work arrangements. If asked about any of
   these, say "Please contact Akbar directly to discuss." and move on.
 - Never answer personal questions: age, date of birth, home address, family, marital status,
   salary or compensation, or anything not covered by the profile excerpts. If asked, say
-  "I can't share personal details — please reach Akbar directly at akbarshaik2243@gmail.com."
+  "I can't share personal details — the best way to reach Akbar is to book an intro call
+  at https://cal.com/akbar-shaik/intro-call."
 - Always shareable (never treat as personal): his full name (Akbar Shaik), job title,
-  contact email and phone, city (Irving, Texas), qualifications summary, and call availability.
+  city (Irving, Texas), qualifications summary, and call availability. Never share his
+  email address or phone number — direct people to the booking link instead.
 - If the visitor wants to schedule a call, offer it directly: share the booking link
   https://cal.com/akbar-shaik/intro-call and mention 30-minute intro calls on weekdays
   2-4 PM America/Chicago, with a Google Meet link emailed automatically after booking.
@@ -96,6 +100,13 @@ def search_profile(query: str, top_k: int = 4):
     return [(s, t) for _, s, t in scored[:top_k]]
 
 
+def _scrub_contact(text):
+    """Remove email addresses and phone numbers; point to scheduling instead."""
+    text = re.sub(r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}", "the booking link", text)
+    text = re.sub(r"\(?\d{3}\)?[\s.\-]\d{3}[\s.\-]\d{4}", "the booking link", text)
+    return text
+
+
 def _dedupe(text):
     """Collapse exact repeated sentences/paragraphs the model sometimes emits twice."""
     import itertools
@@ -120,8 +131,8 @@ def answer(question):
     ]
     if not token:
         reply = ("The demo brain isn't connected yet: this app needs a free Hugging Face "
-                 "token (HF_TOKEN secret) for the inference API. Meanwhile, reach Akbar at "
-                 "akbarshaik2243@gmail.com.")
+                 "token (HF_TOKEN secret) for the inference API. Meanwhile, the best way to reach "
+                 "Akbar is to book an intro call at https://cal.com/akbar-shaik/intro-call.")
         trace_steps.append(("LLM step", "skipped — no HF_TOKEN configured"))
         return reply, trace_steps
     context = "\n\n".join(f"[{s}]\n{t}" for s, t in hits) or "(No directly matching profile facts found.)"
@@ -138,10 +149,11 @@ def answer(question):
         )
         reply = completion.choices[0].message.content.strip()
         reply = _dedupe(reply)
+        reply = _scrub_contact(reply)
         trace_steps.append(("LLM answer", f"{MODEL} composed the answer from {len(hits)} retrieved facts"))
     except Exception as e:
         reply = (f"The inference API returned an error ({type(e).__name__}). "
-                 f"Please try again, or reach Akbar at akbarshaik2243@gmail.com.")
+                 f"Please try again, or book an intro call at https://cal.com/akbar-shaik/intro-call.")
         trace_steps.append(("LLM step", f"failed: {type(e).__name__}"))
     return reply, trace_steps
 

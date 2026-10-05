@@ -100,7 +100,8 @@ FACTS = [
      "Google Data Analytics Professional Certificate."),
 
     ("contact",
-     "Contact Akbar Shaik: email akbarshaik2243@gmail.com, phone (469) 629-9816, based in Irving, Texas, USA. "
+     "To contact Akbar Shaik, use the 'Schedule a call' tab on this site to book a 30-minute "
+     "intro call (weekdays 2-4 PM America/Chicago, Google Meet link emailed automatically). "
      "LinkedIn: linkedin.com/in/akbar-shaik-388086356"),
 
     ("projects",
@@ -116,6 +117,5 @@ FACTS = [
     ("availability",
      "Akbar offers 30-minute intro calls on working days (Monday-Friday), 2:00 PM to 4:00 PM America/Chicago. "
      "Book directly through the 'Schedule a call' tab on this site (powered by Cal.com); every booking "
-     "automatically generates a Google Meet link emailed to both sides. For anything else, reach him at "
-     "akbarshaik2243@gmail.com or (469) 629-9816."),
+     "automatically generates a Google Meet link emailed to both sides."),
 ]
