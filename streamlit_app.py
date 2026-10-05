@@ -109,6 +109,21 @@ def _scrub_contact(text):
     return text
 
 
+AGENT_IDENTITY = (
+    "I'm HireLens — Akbar Shaik's AI representative. I can walk you through his background, "
+    "skills, and projects, or help you book a 30-minute intro call with him."
+)
+
+
+def _is_about_agent(question):
+    """'What is your name' / 'who are you' -> the agent; 'his name' -> Akbar."""
+    q = question.lower()
+    second_person = bool(re.search(r"\b(you|your|yours|yourself)\b", q))
+    identity_word = bool(re.search(r"\b(name|who|agent|hirelens|yourself)\b", q))
+    return ((second_person and identity_word)
+            or bool(re.search(r"\b(this|that|what)\s+agent\b", q)))
+
+
 def _dedupe(text):
     """Collapse exact repeated sentences/paragraphs the model sometimes emits twice."""
     import itertools
@@ -124,6 +139,9 @@ def _dedupe(text):
 
 def answer(question):
     """Run the agent: retrieve facts, then have the LLM answer from them."""
+    if _is_about_agent(question):
+        return AGENT_IDENTITY, [("Question received", question),
+                                 ("Identity", "answered from the agent's own identity")]
     token = get_secret("HF_TOKEN")
     hits = search_profile(question)
     trace_steps = [
