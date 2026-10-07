@@ -103,10 +103,15 @@ FACTS = [
      "LinkedIn: linkedin.com/in/akbar-shaik-388086356"),
 
     ("projects",
-     "Side projects: (1) HireLens — this site — an interactive AI portfolio: a retrieval-augmented agent "
-     "that answers questions from a profile knowledge base with observable tool calls, built with Streamlit, "
-     "Python, and Hugging Face serverless inference. (2) 'MCP Servers from Scratch' — a daily newsletter teaching "
-     "engineers to build Model Context Protocol servers, with 174 subscribers."),
+     "Side projects: (1) AgentForge — an open-source production stack for AI agents, built in public: "
+     "an MCP server template with per-user auth and scopes, PII-masking and prompt-injection guardrails "
+     "on the data path, and a small eval harness with a deployment gate. The latest release added a "
+     "'turn-five suite' of evals for long-session failures: buried constraints, mid-session policy edits, "
+     "schema drift, and poisoned tool outputs. (2) HireLens — this site — an interactive AI portfolio: "
+     "a retrieval-augmented agent that answers questions from a profile knowledge base with observable "
+     "tool calls, built with Streamlit, Python, and Hugging Face serverless inference. "
+     "(3) 'MCP Servers from Scratch' — a daily newsletter teaching engineers to build Model Context "
+     "Protocol servers, with 174 subscribers."),
 
     ("identity",
      "Akbar Shaik is an Applied AI/ML Engineer with 5+ years of experience, based in Irving, Texas, USA. "
