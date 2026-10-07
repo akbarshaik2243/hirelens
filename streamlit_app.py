@@ -244,7 +244,6 @@ SKILL_GROUPS = {
     "Eval & Safety": ["DeepEval", "Promptfoo", "LLM-as-judge", "Red-teaming",
                       "OWASP LLM Top 10", "NeMo Guardrails", "Llama Guard"],
 }
-
 EXPERIENCE = [
     ("Applied Machine Learning Engineer", "Hewlett Packard Enterprise · Texas",
      "Apr 2026 – Present",
@@ -263,6 +262,14 @@ EXPERIENCE = [
 ]
 
 PROJECTS = [
+    ("AgentForge — the production stack for AI agents (open source)",
+     "An open-source Python stack for shipping AI agents to production: an MCP server template with "
+     "per-user auth and scopes, PII-masking and prompt-injection guardrails on the data path, and a "
+     "tiny eval harness with a deployment gate. v0.2 added the turn-five suite — four evals for the "
+     "failures that only appear once an agent has history (buried constraints, mid-session policy "
+     "edits, schema drift, poisoned tool outputs). github.com/akbarshaik2243/agentforge",
+     ["MCP", "Eval harnesses", "Guardrails", "Open source"]),
+  
     ("HireLens — this website",
      "An interactive AI portfolio: a retrieval-augmented agent that answers recruiter questions "
      "from a profile knowledge base, with observable tool calls. Built with Streamlit, Python, "
